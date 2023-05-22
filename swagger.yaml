@@ -1,0 +1,77 @@
+openapi: 3.0.0
+servers:
+  - url: http://localhost:1299
+    variables: {}
+info:
+  description: This is a mixy mixy word guess game API.
+
+  version: "1.0.0"
+  title: Mixy Word Game API
+  contact:
+    email: elinordeniz@gmail.com
+
+paths:
+  /api/v1/word:
+    get:
+      tags:
+        - Public
+      summary: get mixy random words list
+      operationId: getWordsList
+      description: |
+        By passing in the appropriate options to the queries (difficulty, amount) in the url, you can get a list of random mixy words with hints
+      parameters:
+        - in: query
+          name: difficulty
+          description: pass an optional difficulty string for the game level. Available valid options are 'easy, medium, hard'. If you do not pass any default 'medium' will be passed
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: amount
+          description: number of random mixy words in an array. If you dont pass any numbers between 0 and 100 default 25 value will be passed
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 100
+
+      responses:
+        "200":
+          description: random mixy words list results matching your options that you passed in query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/wordList"
+        "400":
+          description: bad input parameter
+
+components:
+  schemas:
+    wordList:
+      type: object
+      required:
+        - id
+        - originalWordLength
+        - originalWord
+        - mixedWordArray
+        - hintMeaning
+      properties:
+        id:
+          type: integer
+          example: 1
+        originalWordLength:
+          type: integer
+          example: 5
+        originalWord:
+          type: string
+          example: cry
+        mixedWordArray:
+          type: array
+          items: {}
+          example: ["c", "t", "a", "r", "u", "y", "g", "l", "h", "h", "o"]
+        hintMeaning:
+          type: array
+          items: {}
+          example: ["c", "t", "a", "r", "u", "y", "g", "l", "h", "h", "o"]
