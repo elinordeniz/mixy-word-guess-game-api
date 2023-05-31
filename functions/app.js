@@ -21,7 +21,7 @@ app.use(bodyParser.json({ strict: false }));
 let swagger_path = path.resolve(__dirname,'../swagger.yaml');
 
 //const file  = fs.readFileSync(swagger_path, 'utf8')
-const swaggerDocument= YAML.parse(swagger_path)
+const swaggerDocument= YAML.load(swagger_path)
 //const swaggerDocument = require('../swagger.json');
 
 // var options = {
