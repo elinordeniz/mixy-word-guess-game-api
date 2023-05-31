@@ -1,0 +1,20 @@
+plugins:
+  - serverless-auto-swagger
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  autoswagger:
+    title: "string"
+    apiType: "http"
+    generateSwaggerOnDeploy: true | false
+    swaggerFiles: ["./swagger.yaml"]
+    swaggerPath: "string"
+    apiKeyHeaders: ["Authorization", "anyOtherName"]
+    useStage: true | false
+    basePath: "/string"
+    host: process.env.HOST
+    schemes: ["http", "https"]
+    excludeStages: ["production", "anyOtherStage"]
+    lambdaAuthorizer: ${self:custom.myAuthorizer}
+    useRedirectUI: true | false

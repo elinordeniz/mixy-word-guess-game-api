@@ -1,0 +1,7 @@
+[dev]
+functions="functions"
+
+  [[redirects]]
+  to="/.netlify/functions/app/:splat"
+  from="/*"
+  status=200

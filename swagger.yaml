@@ -1,15 +1,23 @@
-openapi: 3.0.0
-servers:
-  - url: http://localhost:1299
-    variables: {}
+openapi: "3.0.0"
 info:
-  description: This is a mixy mixy word guess game API.
-
+  description: This is a mixy mixy word guess game API
   version: "1.0.0"
   title: Mixy Word Game API
   contact:
     email: elinordeniz@gmail.com
 
+license:
+  name: Apache 2.0
+  url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: process.env.URL
+
+host: process.env.HOST
+basePath: /
+schemes:
+  - http
+  - https
 paths:
   /api/v1/word:
     get:
@@ -19,6 +27,8 @@ paths:
       operationId: getWordsList
       description: |
         By passing in the appropriate options to the queries (difficulty, amount) in the url, you can get a list of random mixy words with hints
+      produces:
+        - "application/json"
       parameters:
         - in: query
           name: difficulty
