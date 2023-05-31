@@ -5,7 +5,7 @@ const bodyParser= require('body-parser')
 const express = require("express");
 const app = express();
 const router = express.Router();
-const fs = require("fs")
+
 const PORT = process.env.PORT || 1299;
 const wordRouter = require("../routes/word");
 const notFoundMiddleware = require("../middlewares/not-found");
@@ -19,17 +19,16 @@ app.use(express.json());
 app.use(bodyParser.json({ strict: false }));
 
 let swagger_path = path.resolve(__dirname,'../swagger.yaml');
- console.log(swagger_path)
-const file  = fs.readFileSync(swagger_path, 'utf8')
- console.log(file)
-const swaggerDocument= YAML.parse(file)
+
+//const file  = fs.readFileSync(swagger_path, 'utf8')
+const swaggerDocument= YAML.parse(swagger_path)
 //const swaggerDocument = require('../swagger.json');
 
-var options = {
+// var options = {
    
-     "isTrusted": true 
+//      "isTrusted": true 
   
-};
+// };
 //routes
 app.use("/.netlify/functions/app", router);
 app.use("/", router);
@@ -41,7 +40,7 @@ router.get("/", (req, res) => {
 // router.use("/swagger", swaggerUI.serve);
 // router.get("/swagger", swaggerUI.setup(swaggerDocument, options));
 
-router.use("/swagger", cors(), swaggerUI.serve, swaggerUI.setup(swaggerDocument, options));
+router.use("/swagger", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 router.use("/api/v1/word", wordRouter);
 
 // error middlewares
