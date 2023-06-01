@@ -20,6 +20,10 @@
 
 # Routes
 
-Home /
-Api Doc /swagger
-Api Page /api/v1/word?difficulty=easy&amount=10
+- Home /
+- Api Doc /swagger
+- Api Page /api/v1/word?difficulty=easy&amount=10
+
+# RapidApi Link
+
+- https://rapidapi.com/elinordeniz/api/mixy-word-guess-api
