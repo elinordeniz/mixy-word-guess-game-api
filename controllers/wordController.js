@@ -74,6 +74,11 @@ const getMixyWord = async (req, res, next) => {
       const uniqueHints = checkForDuplicate(hints);
       const uniqueWords = checkForDuplicate(originalWordsList);
 
+      if (uniqueHints?.length === 0) {
+        i = i - 1;
+        continue;
+      }
+
       // if there is a duplicate words
       if (uniqueWords.length !== originalWordsList.length) {
         i = i - 1;
