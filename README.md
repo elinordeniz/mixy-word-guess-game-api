@@ -1,18 +1,25 @@
-## Road Map
+# Description
 
-# Controllers
+- Welcome to Mixy Mixy Word Game Express Api
+- This Api is for a word guess game in English. It produces random words in a requested amount and varios difficulty levels such as; "easy", "medium", "hard". In the query, "amount" and "difficulty" are optional parameters.
+- Default values; amount: 25 and difficuly: medium if you do not pass any parameter in query
+- "difficulty" accepts only "easy", "medium", "hard".
+- "amount" accepts only integer between 1 and 100.
 
-- 3 seviye olacak (5, 6, 7 harfli)
-- 1 random kelime alınacak (kelime sayısına göre)
-- mix edilecek
-- max 5 tane hint olacak
+# Important Packages for words
 
-# Değişkenler
+- "word-thesaurus" for synonyms of a word
+- "random-words" for random words
 
-hints(eş anlamlar), original, mixed, length,
-query params: difficulty, amount
+# Techs
+
+- Serverless function for netlify
+- Express
+- Node.js
+- serverless-http
 
 # Routes
 
-/ welcome
-/ api/v1/words json list
+Home /
+Api Doc /swagger
+Api Page /api/v1/word?difficulty=easy&amount=10
