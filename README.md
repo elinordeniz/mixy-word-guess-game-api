@@ -27,3 +27,7 @@
 # RapidApi Link
 
 - https://rapidapi.com/elinordeniz/api/mixy-word-guess-api
+
+git add README.md
+git commit -m "read me file updated"
+git push -u origin main 

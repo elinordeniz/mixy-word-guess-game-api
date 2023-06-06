@@ -5,7 +5,7 @@ plugins:
 
 custom:
   autoswagger:
-    title: "string"
+    title: "string" 
     apiType: "http"
     generateSwaggerOnDeploy: true | false
     swaggerFiles: ["./swagger.yaml"]

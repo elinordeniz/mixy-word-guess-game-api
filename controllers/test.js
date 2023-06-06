@@ -1,6 +1,6 @@
 var randomWords = require("random-words");
 var betterRandom = require("better-random-words");
-var thesaurus = require("word-thesaurus");
+//var synonym = require("word-thesaurus");
 const difficultyLevel = require("../config/difficulty");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, ServerError } = require("../errors");
@@ -39,75 +39,66 @@ const getMixyWord = async (req, res, next) => {
       console.log(i);
       //get random words in an array
       let extraLetters = await randomWords();
-       console.log("extraLetters",extraLetters)
       extraLetters=extraLetters.slice(0,3);
-      console.log("extraLetters ",extraLetters)
       //pick one word randomly
       let originalWord = await randomWords({
-        exactly:1,
         maxLength: difficultyLevel[difficulty].lengthOfWords,
       });
-       console.log('originalWord ',originalWord)
-      if(originalWord[0].length!==difficultyLevel[difficulty].lengthOfWords){
-        i = i - 1;
-        continue;
-      }
+      // if(originalWord.length!==difficultyLevel[difficulty].lengthOfWords){
+      //   i = i - 1;
+      //   continue;
+      // }
       //temprorary words list to determine duplicates in one level
       originalWordsList.push(originalWord);
       let mixedWordArray = originalWord
-      .concat(extraLetters)
-      .join("")
-       .split("")
-        .sort(() => 0.5 - Math.random());
- console.log("mixedWordArray", mixedWordArray)
-     // get synonyms of the original word for hints
-      let allSynonyms =  thesaurus.search(originalWord[0])[0];
-      if (allSynonyms?.raw?.length === 0) {
-        i = i - 1;
-        continue;
-      }
-       console.log("allSynonyms",allSynonyms)
-      //check if hint word consist of the  original word itself
-      let hints = await allSynonyms?.raw?.filter((hint) => {
-        if (!hint.includes(originalWord)) {
-          return hint.toLowerCase();
-        }
-      });
+        .concat(extraLetters)
+        // .split("")
+        // .sort(() => 0.5 - Math.random());
+
+         console.log("mixedWordArray",mixedWordArray)
+
+      // //get synonyms of the original word for hints
+      // let allSynonyms = await synonym.search(originalWord)[0];
+
+      // //check if hint word consist of the  original word itself
+      // let hints = await allSynonyms?.raw?.filter((hint) => {
+      //   if (!hint.includes(originalWord)) {
+      //     return hint;
+      //   }
+      // });
 
       // //if the word has no available hints we dont push it and skip it
-      if (hints?.length === 0) {
-        i = i - 1;
-        continue;
-      }
+      // if (hints?.length === 0) {
+      //   i = i - 1;
+      //   continue;
+      // }
 
       // //are hints and words unique
-      const uniqueHints = checkForDuplicate(hints);
-      const uniqueWords = checkForDuplicate(originalWordsList);
+      // const uniqueHints = checkForDuplicate(hints);
+      // const uniqueWords = checkForDuplicate(originalWordsList);
 
-      if (uniqueHints.length === 0) {
-        i = i - 1;
-        continue;
-      }
+      // if (uniqueHints?.length === 0) {
+      //   i = i - 1;
+      //   continue;
+      // }
 
       // // if there is a duplicate words
-      if (uniqueWords.length !== originalWordsList.length) {
-        i = i - 1;
-        originalWordsList.pop();
-        continue;
-      }
+      // if (uniqueWords.length !== originalWordsList.length) {
+      //   i = i - 1;
+      //   originalWordsList.pop();
+      //   continue;
+      // }
 
       // // Max 5 hints
-      let hintList = uniqueHints?.slice(1, 6);
-      let originalWordLength = originalWord[0].length;
-      let mixedWordArrayLength=mixedWordArray.length;
+      // let hintMeaning = uniqueHints?.slice(1, 6);
+      // let originalWordLength = originalWord.length;
 
       wordList.push({
         id: i + 1,
         originalWordLength,
-        originalWord:originalWord[0],
-        mixedWordArrayLength,
+        originalWord,
         mixedWordArray,
-        hintList,
+       // hintMeaning,
       });
     }
 

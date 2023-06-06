@@ -1,15 +1,12 @@
 const difficulty ={
     "easy": {
-        "NumOfWords" : 2,
-        "minLengthOfWords": 2
+        "lengthOfWords": 4
     },
     "medium": {
-        "NumOfWords" : 3,
-        "minLengthOfWords": 3
+        "lengthOfWords": 5
     },
     "hard": {
-        "NumOfWords" : 4,
-        "minLengthOfWords": 4
+        "lengthOfWords": 8
     }
 }
 
