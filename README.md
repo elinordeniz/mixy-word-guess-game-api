@@ -30,4 +30,4 @@
 
 # Preview
 
-[<img src="https://github.com/elinordeniz/mixy-word-guess-game-api/tree/main/public/assets/wordapi.png" width="750" height="500"/>](https://rapidapi.com/elinordeniz/api/mixy-word-guess-api)
+[<img src="https://github.com/elinordeniz/mixy-word-guess-game-api/blob/main/assets/wordapi.png" width="750" height="500"/>](https://rapidapi.com/elinordeniz/api/mixy-word-guess-api)
