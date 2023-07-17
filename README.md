@@ -28,6 +28,6 @@
 
 - https://rapidapi.com/elinordeniz/api/mixy-word-guess-api
 
-git add README.md
-git commit -m "read me file updated"
-git push -u origin main 
+# Preview
+
+[<img src="https://github.com/elinordeniz/mixy-word-guess-game-api/tree/main/public/assets/wordapi.png" width="750" height="500"/>](https://rapidapi.com/elinordeniz/api/mixy-word-guess-api)

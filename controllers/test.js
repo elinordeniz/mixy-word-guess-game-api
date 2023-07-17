@@ -1,6 +1,6 @@
 var randomWords = require("random-words");
 var betterRandom = require("better-random-words");
-//var synonym = require("word-thesaurus");
+var synonym = require("word-thesaurus");
 const difficultyLevel = require("../config/difficulty");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, ServerError } = require("../errors");
@@ -52,53 +52,51 @@ const getMixyWord = async (req, res, next) => {
       originalWordsList.push(originalWord);
       let mixedWordArray = originalWord
         .concat(extraLetters)
-        // .split("")
-        // .sort(() => 0.5 - Math.random());
+        .split("")
+        .sort(() => 0.5 - Math.random());
 
-         console.log("mixedWordArray",mixedWordArray)
+      //get synonyms of the original word for hints
+      let allSynonyms = await synonym.search(originalWord)[0];
 
-      // //get synonyms of the original word for hints
-      // let allSynonyms = await synonym.search(originalWord)[0];
+      //check if hint word consist of the  original word itself
+      let hints = await allSynonyms?.raw?.filter((hint) => {
+        if (!hint.includes(originalWord)) {
+          return hint;
+        }
+      });
 
-      // //check if hint word consist of the  original word itself
-      // let hints = await allSynonyms?.raw?.filter((hint) => {
-      //   if (!hint.includes(originalWord)) {
-      //     return hint;
-      //   }
-      // });
+      //if the word has no available hints we dont push it and skip it
+      if (hints?.length === 0) {
+        i = i - 1;
+        continue;
+      }
 
-      // //if the word has no available hints we dont push it and skip it
-      // if (hints?.length === 0) {
-      //   i = i - 1;
-      //   continue;
-      // }
+      //are hints and words unique
+      const uniqueHints = checkForDuplicate(hints);
+      const uniqueWords = checkForDuplicate(originalWordsList);
 
-      // //are hints and words unique
-      // const uniqueHints = checkForDuplicate(hints);
-      // const uniqueWords = checkForDuplicate(originalWordsList);
+      if (uniqueHints?.length === 0) {
+        i = i - 1;
+        continue;
+      }
 
-      // if (uniqueHints?.length === 0) {
-      //   i = i - 1;
-      //   continue;
-      // }
+      // if there is a duplicate words
+      if (uniqueWords.length !== originalWordsList.length) {
+        i = i - 1;
+        originalWordsList.pop();
+        continue;
+      }
 
-      // // if there is a duplicate words
-      // if (uniqueWords.length !== originalWordsList.length) {
-      //   i = i - 1;
-      //   originalWordsList.pop();
-      //   continue;
-      // }
-
-      // // Max 5 hints
-      // let hintMeaning = uniqueHints?.slice(1, 6);
-      // let originalWordLength = originalWord.length;
+      // Max 5 hints
+      let hintMeaning = uniqueHints?.slice(1, 6);
+      let originalWordLength = originalWord.length;
 
       wordList.push({
         id: i + 1,
         originalWordLength,
         originalWord,
         mixedWordArray,
-       // hintMeaning,
+        hintMeaning,
       });
     }
 
